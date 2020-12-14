@@ -17,6 +17,11 @@ This extension let you display a reveal.js presentation directly from an opened 
 
 ![demo](https://github.com/evilz/vscode-reveal/raw/master/images/demo2.0-bis.gif)
 
+## DEV Getting started
+
+- `npm install`
+- Debug: launch extension in a separrate window
+
 ## Features
 
 - [Markdown](#markdown)

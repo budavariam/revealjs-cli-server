@@ -3,7 +3,7 @@ import { Logger } from '../Logger'
 
 import { ShellExecution, Task, TaskDefinition } from 'vscode';
 
-export const EXPORT_HTML = 'vscode-revealjs.exportHTML'
+export const EXPORT_HTML = 'vscode-revealjs.exportHTML' //
 export type EXPORT_HTML = typeof EXPORT_HTML
 
 export const exportHTML = (logger: Logger, startExport: () => Promise<string>, doOpenAfterExport: () => boolean) => async () => {

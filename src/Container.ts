@@ -124,7 +124,7 @@ export default class Container {
   public get isInExport() { return this.exportTimeout !== null }
 
   private exportTimeout: NodeJS.Timeout | null = null
-  public export = async () =>  {
+  public export = async () =>  { //
     
           if(this.exportTimeout !== null) {
             clearTimeout(this.exportTimeout)

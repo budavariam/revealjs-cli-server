@@ -66,7 +66,7 @@
       },
       {
         "command": "vscode-revealjs.exportHTML",
-        "title": "Revealjs: Export in HTML",
+        "title": "Revealjs: Export in HTMLl",
         "icon": {
           "light": "resources/light/html.svg",
           "dark": "resources/dark/html.svg"
