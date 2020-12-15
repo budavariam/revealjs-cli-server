@@ -109,10 +109,13 @@ export const main = async (
     } else if (!serve) {
         // force ejs to generate main file
         await http.get(getUri(server) || "");
+        console.log("index.html generated...")
         // copy all libs. Might be exhausting, but simpler and smaller than an automated scraper
         await jetpack.copy(path.join(rootDir, "libs"), getExportPath(config))
+        console.log("Lib info generated...")
         // stop server and quit
         server.stop()
+        console.log("Server stopped... Exiting")
         process.exit(0)
     }
 
