@@ -8,6 +8,7 @@
 'use strict';
 
 const path = require('path');
+const { ContextReplacementPlugin } = require('webpack');
 
 /**@type {import('webpack').Configuration}*/
 const config = {
@@ -16,17 +17,23 @@ const config = {
   entry: './src/index.ts', // the entry point of this extension, 📖 -> https://webpack.js.org/configuration/entry-context/
   output: { // the bundle is stored in the 'dist' folder (check package.json), 📖 -> https://webpack.js.org/configuration/output/
     path: path.resolve(__dirname, 'dist'),
-    filename: 'extension.js',
+    filename: 'revealjs-cli-server.js',
     libraryTarget: "commonjs2",
     devtoolModuleFilenameTemplate: "../[resource-path]",
   },
   devtool: 'source-map',
   externals: {
-    vscode: "commonjs vscode" // the vscode-module is created on-the-fly and must be excluded. Add other modules that cannot be webpack'ed, 📖 -> https://webpack.js.org/configuration/externals/
+    // Add other modules that cannot be webpack'ed, 📖 -> https://webpack.js.org/configuration/externals/
   },
   resolve: { // support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    alias: {
+      'ejs': 'ejs/ejs.min.js'
+    }
   },
+  plugins: [
+    new ContextReplacementPlugin(/any-promise/)
+  ],
   module: {
     rules: [{
       test: /\.ts$/,
