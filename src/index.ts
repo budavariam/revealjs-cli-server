@@ -7,6 +7,7 @@ const program = new Command()
 program
     .option('-d, --debug', 'log additional debug info')
     .option('-p, --port <port>', 'serve app on specifict port')
+    .option('-b, --build', 'save the generated presentation to the path specified in `exportHTMLPath`')
     .option('-s, --serve', 'serve app on a random port')
     .option('-c, --config <location>', 'config json file to override default values')
     .option('-o, --open <location>', 'source of the starter markdown file')
@@ -18,7 +19,8 @@ if (program.debug) {
 const logger = initLogger(program.debug ? LogLevel.Verbose : LogLevel.Error)
 const port = program.port ? program.port : 0
 const slideSource = program.open || ""
-const serve = program.port >= 0 || program.serve
+const serve = program.port >= 0 || program.serve || false
+const generateBundle = program.build || !program.serve || false
 
 if (!slideSource) {
     console.error("Please specify a markdown file to open with --open parameter. More info: --help")
@@ -29,6 +31,7 @@ const overrideConfig = loadConfigFile(program.config || "")
 main(
     logger,
     slideSource,
+    generateBundle,
     serve,
     port,
     overrideConfig,

@@ -76,29 +76,37 @@ export const loadConfigFile = (path: string): any => {
 export const main = async (
     logger: Logger,
     slideSource: string,
+    generateBundle: boolean,
     serve: boolean = true,
     port: number = 0,
     overrideConfig = {},
 ) => {
     const config = { ...defaultConfiguration, ...overrideConfig }
     const documentText = "" + fs.readFileSync(slideSource)
-    await jetpack.removeAsync(getExportPath(config))
+    if (generateBundle) {
+        const exportPath = getExportPath(config)
+        console.log(`Remove files from: ${exportPath}`)
+        await jetpack.removeAsync(exportPath)
+        console.log(`Start to generate presentation to: ${exportPath}`)
+    }
     const server = new RevealServer(
         logger,
         () => rootDir, // RootDir
         () => parseSlides(documentText, documentOptions(documentText)),
         () => config,
         '.', // PATH TO DATA
-        () => false, // is during export
+        () => generateBundle,
         () => getExportPath(config)
-    )
-    server.start(Math.abs(port))
-    showHints()
-    console.log(`Serving slides at: ${getUri(server)}`)
-    console.log(`Use this url to export (print) pdf: ${exportPDFUri(server)}`)
-    //console.log(`Speaker view served from: ${getUri(server)}libs/reveal.js/3.8.0/plugin/notes/notes.html (NEEDS TO OPEN WITH SHORTCUT)`)
-    if (!serve) {
+        )
+        server.start(Math.abs(port))
+        showHints()
+    if (serve) {
+        console.log(`Serving slides at: ${getUri(server)}`)
+        console.log(`Use this url to export (print) pdf: ${exportPDFUri(server)}`)
+        //console.log(`Speaker view served from: ${getUri(server)}libs/reveal.js/3.8.0/plugin/notes/notes.html (NEEDS TO OPEN WITH SHORTCUT)`)
+    } else if (!serve) {
         server.stop()
+        process.exit(0)
     }
 
 }
