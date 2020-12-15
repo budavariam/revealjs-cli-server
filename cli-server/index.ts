@@ -4,24 +4,11 @@ import { defaultConfiguration, IDocumentOptions } from "./Configuration"
 import { parseSlides } from "./SlideParser"
 import * as path from 'path'
 import * as matter from 'gray-matter'
-
+import * as fs from 'fs'
 
 const config = defaultConfiguration
 const rootDir = '.'
-const documentText = `
----
-separator:  "^[\\r\\n?|\\n]---[\\r\\n?|\\n]$"
-verticalSeparator: "^[\\r\\n?|\\n]--[\\r\\n?|\\n]$"
----
-
-# DSFSDA
-
----
-
-## ASDF
-
-n970NDWgqLkB
-`
+const documentText = "" + fs.readFileSync("./sample.md")
 
 // const slideContent = (documentText): string => {
 //     return matter(documentText).content
