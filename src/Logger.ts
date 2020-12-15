@@ -4,7 +4,7 @@ export enum LogLevel {
 }
 
 export class Logger {
-  constructor(private logLevel: LogLevel, private readonly appendLine: (string) => void) {}
+  constructor(private logLevel: LogLevel, private readonly appendLine: (string) => void) { }
 
   public error(message: string) {
     this.appendLine(`[error - ${new Date().toLocaleTimeString()}] ${message}`)
