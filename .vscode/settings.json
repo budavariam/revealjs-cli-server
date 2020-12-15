@@ -25,4 +25,14 @@
         "serverId": "evilz-github"
     },
     "tslint.autoFixOnSave": true,
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#e2926e",
+        "activityBar.activeBorder": "#caf4d7",
+        "activityBar.background": "#e2926e",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#caf4d7",
+        "activityBarBadge.foreground": "#15202b"
+    },
+    "peacock.color": "#da7243",
 }
