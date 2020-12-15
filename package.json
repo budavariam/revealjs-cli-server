@@ -3,6 +3,9 @@
   "displayName": "revealjs-cli-server",
   "version": "0.0.1",
   "description": "Show markdown as revealJs presentation",
+  "bin": {
+    "revealjs-cli": "dist/revealjs-cli-server.js"
+  },
   "main": "./dist/revealjs-cli-server.js",
   "publisher": "budavariam",
   "repository": {
@@ -114,13 +117,13 @@
     "webpack-node-externals": "^1.7.2"
   },
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack --mode production && chmod +x dist/*",
     "compile:tsc": "tsc -watch -p ./",
     "build:tsc": "tsc -p ./",
     "test": "jest",
     "coverage": "jest --coverage",
     "lint": "tslint -t verbose './src/**/*'",
-    "webpack": "webpack --mode development",
+    "webpack": "webpack --mode development && chmod +x dist/*",
     "webpack-dev": "webpack --mode development --watch"
   },
   "license": "MIT"

@@ -8,7 +8,7 @@
 'use strict';
 
 const path = require('path');
-const { ContextReplacementPlugin } = require('webpack');
+const { ContextReplacementPlugin, BannerPlugin } = require('webpack');
 
 /**@type {import('webpack').Configuration}*/
 const config = {
@@ -32,7 +32,8 @@ const config = {
     }
   },
   plugins: [
-    new ContextReplacementPlugin(/any-promise/)
+    new ContextReplacementPlugin(/any-promise/),
+    new BannerPlugin({ banner: "#!/usr/bin/env node", raw: true }),
   ],
   node: {
     __dirname: false, // necessary to be able to use as a cli tool in other projects, otherwise webpack strips the absolute path
