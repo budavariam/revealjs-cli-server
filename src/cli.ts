@@ -1,4 +1,5 @@
 import * as fs from 'fs'
+import * as http from 'http'
 import * as jetpack from "fs-jetpack";
 import * as matter from 'gray-matter'
 import * as path from 'path'
@@ -79,6 +80,7 @@ export const main = async (
     generateBundle: boolean,
     serve: boolean = true,
     port: number = 0,
+    debugMode: boolean = false,
     overrideConfig = {},
 ) => {
     const config = { ...defaultConfiguration, ...overrideConfig }
@@ -98,13 +100,18 @@ export const main = async (
         () => generateBundle,
         () => getExportPath(config)
         )
-        server.start(Math.abs(port))
+        server.start(Math.abs(port), debugMode)
         showHints()
     if (serve) {
         console.log(`Serving slides at: ${getUri(server)}`)
         console.log(`Use this url to export (print) pdf: ${exportPDFUri(server)}`)
         //console.log(`Speaker view served from: ${getUri(server)}libs/reveal.js/3.8.0/plugin/notes/notes.html (NEEDS TO OPEN WITH SHORTCUT)`)
     } else if (!serve) {
+        // force ejs to generate main file
+        await http.get(getUri(server) || "");
+        // copy all libs. Might be exhausting, but simpler and smaller than an automated scraper
+        await jetpack.copy(path.join(rootDir, "libs"), getExportPath(config))
+        // stop server and quit
         server.stop()
         process.exit(0)
     }

@@ -13,10 +13,11 @@ program
     .option('-o, --open <location>', 'source of the starter markdown file')
 program.parse(process.argv);
 
-if (program.debug) {
+const debugMode = program.debug
+if (debugMode) {
     console.log("Started tool with the following options: ", program.opts())
 };
-const logger = initLogger(program.debug ? LogLevel.Verbose : LogLevel.Error)
+const logger = initLogger(debugMode ? LogLevel.Verbose : LogLevel.Error)
 const port = program.port ? program.port : 0
 const slideSource = program.open || ""
 const serve = program.port >= 0 || program.serve || false
@@ -34,5 +35,6 @@ main(
     generateBundle,
     serve,
     port,
+    debugMode,
     overrideConfig,
 )
