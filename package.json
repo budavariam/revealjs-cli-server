@@ -3,7 +3,7 @@
   "displayName": "revealjs-cli-server",
   "version": "0.0.1",
   "description": "Show markdown as revealJs presentation",
-  "main": "./dist/revealjs-cli-server",
+  "main": "./dist/revealjs-cli-server.js",
   "publisher": "budavariam",
   "repository": {
     "type": "git",

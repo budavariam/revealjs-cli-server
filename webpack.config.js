@@ -34,6 +34,9 @@ const config = {
   plugins: [
     new ContextReplacementPlugin(/any-promise/)
   ],
+  node: {
+    __dirname: false, // necessary to be able to use as a cli tool in other projects, otherwise webpack strips the absolute path
+  },
   module: {
     rules: [{
       test: /\.ts$/,

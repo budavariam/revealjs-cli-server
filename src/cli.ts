@@ -9,12 +9,13 @@ import { Logger, LogLevel } from "./Logger"
 import { RevealServer } from "./RevealServer"
 import { parseSlides } from "./SlideParser"
 
-const rootDir = '.'
+const rootDir = path.join(__dirname, "..")
+const clientWorkingDir = process.cwd()
 
 const getExportPath = (config) => {
     return path.isAbsolute(config.exportHTMLPath)
         ? config.exportHTMLPath
-        : path.join(rootDir, config.exportHTMLPath)
+        : path.join(clientWorkingDir, config.exportHTMLPath)
 }
 
 // const slideContent = (documentText): string => {
@@ -96,7 +97,7 @@ export const main = async (
         () => rootDir, // RootDir
         () => parseSlides(documentText, documentOptions(documentText)),
         () => config,
-        '.', // PATH TO DATA
+        rootDir, // BasePath to extensions, ejs views and libs in this folder
         () => generateBundle,
         () => getExportPath(config)
         )
