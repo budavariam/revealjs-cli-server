@@ -1,5 +1,5 @@
 import * as fs from 'fs'
-import * as http from 'http'
+import axios from 'axios'
 import * as jetpack from "fs-jetpack";
 import * as matter from 'gray-matter'
 import * as path from 'path'
@@ -107,15 +107,18 @@ export const main = async (
         console.log(`Use this url to export (print) pdf: ${exportPDFUri(server)}`)
         //console.log(`Speaker view served from: ${getUri(server)}libs/reveal.js/3.8.0/plugin/notes/notes.html (NEEDS TO OPEN WITH SHORTCUT)`)
     } else if (!serve) {
-        // force ejs to generate main file
-        await http.get(getUri(server) || "");
-        console.log("index.html generated...")
-        // copy all libs. Might be exhausting, but simpler and smaller than an automated scraper
-        await jetpack.copy(path.join(rootDir, "libs"), getExportPath(config))
-        console.log("Lib info generated...")
-        // stop server and quit
-        server.stop()
-        console.log("Server stopped... Exiting")
+        try {
+            // force ejs to generate main file
+            const res = await axios.get(getUri(server) || "");
+            console.log(`index.html generated... Http respones status: ${res.status}`)
+            // copy all libs. Might be exhausting, but simpler and smaller than an automated scraper
+            await jetpack.copy(path.join(rootDir, "libs"), path.join(getExportPath(config), "libs"))
+            console.log("Lib files generated...")
+            server.stop()
+            console.log("Server stopped... Exiting")
+        } catch (err) {
+            logger.error(`Failed to generate bundle. Error: ${err}`)
+        }
         process.exit(0)
     }
 
