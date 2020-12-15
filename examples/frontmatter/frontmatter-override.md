@@ -3,10 +3,10 @@ separator:  "^[\\r\\n?|\\n]---[\\r\\n?|\\n]$"
 verticalSeparator: "^[\\r\\n?|\\n]--[\\r\\n?|\\n]$"
 ---
 
-# DSFSDA
+# First title
 
 ---
 
-## ASDF
+## Second title
 
-n970NDWgqLkB
+Some text

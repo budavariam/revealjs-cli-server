@@ -17,7 +17,7 @@ This tool is based on the awesome [VSCode-Reveal](https://github.com/evilz/vscod
 ## DEV Getting started
 
 - `npm install`
-- Debug: launch extension in a separrate window
+- Debug: launch extension in a separate window
 
 ## Features
 

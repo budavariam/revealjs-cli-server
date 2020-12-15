@@ -5,9 +5,9 @@ this is the first slide
 
 ---
 
-## You can add Speaker note using 
+## You can add Speaker note using
 
-```
+```text
 note: this text will be visible to speaker only
 ```
 
@@ -15,6 +15,6 @@ note: this text will be visible to speaker only
 
 ---
 
-# Thank
+## Thank
 
-note: Always thank audience !
+note: Always thank audience!

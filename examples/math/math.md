@@ -21,7 +21,7 @@ A thin wrapper for MathJax
 <script type="math/tex; mode=display">
 \left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
 </script>
-                    
+
 ---
 
 ### A Cross Product Formula
@@ -54,7 +54,7 @@ A thin wrapper for MathJax
 
 ---
 
-### Maxwell’s Equations
+### Maxwell's Equations
 
 \[ \begin{aligned} \nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\ \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\ \nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\ \nabla \cdot \vec{\mathbf{B}} & = 0 \end{aligned} \]
 
@@ -102,7 +102,7 @@ Here is a common vector space: \[L^2(\R) = \set{u : \R \to \R}{\int_\R |u|^2 < +
 
 --
 
-### Maxwell’s Equations
+### Maxwell's Equations
 
 <div class="fragment">\[ \begin{aligned} \nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\ \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\ \nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\ \nabla \cdot \vec{\mathbf{B}} & = 0 \end{aligned} \]</div>
 
