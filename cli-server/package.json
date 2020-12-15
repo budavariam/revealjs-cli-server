@@ -1,8 +1,55 @@
 {
-  "name": "cli-server",
+  "name": "revealjs-cli-server",
+  "displayName": "revealjs-cli-server",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "Show markdown as revealJs presentation",
+  "main": "./dist/index",
+  "publisher": "budavariam",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/budavariam/revealjs-cli-server"
+  },
+  "keywords": [
+    "markdown",
+    "reveal js",
+    "slide",
+    "presentation"
+  ],
+  "jest": {
+    "verbose": true,
+    "preset": "ts-jest",
+    "testMatch": [
+      "**/test/**/*.jest.ts"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "collectCoverageFrom": [
+      "**/src/**/*.ts",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ],
+    "reporters": [
+      "default",
+      "jest-junit"
+    ]
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "**/libs/*"
+    ],
+    "reporter": [
+      "html",
+      "lcov"
+    ],
+    "all": true
+  },
   "dependencies": {
     "@evilz/markdown-it-attrs": "^3.0.1",
     "@types/koa-static-server": "^1.3.0",
@@ -67,8 +114,12 @@
     "test-compile": "tsc -p ./",
     "compile": "tsc -watch -p ./",
     "build": "tsc -p ./",
-    "lint": "tslint -t verbose './'"
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "unittest-dev": "cd out && mocha",
+    "lint": "tslint -t verbose './src/**/*'",
+    "webpack": "webpack --mode development",
+    "webpack-dev": "webpack --mode development --watch"
   },
-  "author": "Mátyás Budavári <budavariam@gmail.com> (https://budavariam.github.io/)",
   "license": "MIT"
 }
