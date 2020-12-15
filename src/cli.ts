@@ -47,9 +47,9 @@ const exportPDFUri = (server) => {
 
 const showHints = () => {
     const hints: any = {};
-    hints["Select slide carousel"] = 'o'
-    hints["Prev slide"] = 'p/h'
-    hints["Nesx slide"] = 'n/l'
+    hints["Select slide carousel"] = 'o / ESC'
+    hints["Prev slide"] = 'p / h'
+    hints["Next slide"] = 'n / l'
     hints["Fullscreen mode"] = 'f'
     hints["Download chalkboard"] = 'd'
     hints["Speaker view"] = 's'
