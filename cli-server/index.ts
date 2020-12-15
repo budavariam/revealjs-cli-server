@@ -59,16 +59,19 @@ async function main(slideSource, overrideConfig = {}) {
 
     server.start()
     console.log(`Serving slides at: ${getUri(server)}`)
-    // o - slides
-    // p/h - prev
-    // n/l - next
-    // f - fullscreen
-    // d - download chalkboard
-    // s - speaker view
-    // c - toggle chalkboard
-    // b - crayon chalkboard
-    // v - pause
-    // m - table of contents
+
+    const hints: any = {};
+    hints["Select slide carousel"] = 'o'
+    hints["Prev slide"] = 'p/h'
+    hints["Nesx slide"] = 'n/l'
+    hints["Fullscreen mode"] = 'f'
+    hints["Download chalkboard"] = 'd'
+    hints["Speaker view"] = 's'
+    hints["Toggle drawing"] = 'c'
+    hints["Chalkboard"] = 'b'
+    hints["Pause presentation"] = 'v'
+    hints["Table of contents"] = 'm'
+    console.table(hints);
     console.log(`Use this url to export pdf: ${exportPDFUri(server)}`)
     console.log(`Speaker view served from: ${getUri(server)}libs/reveal.js/3.8.0/plugin/notes/notes.html (NEEDS TO OPEN WITH SHORTCUT)`)
 
