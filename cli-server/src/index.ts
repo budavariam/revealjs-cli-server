@@ -1,83 +1,35 @@
-import * as fs from 'fs'
-import * as jetpack from "fs-jetpack";
-import * as matter from 'gray-matter'
-import * as path from 'path'
+import { initLogger, loadConfigFile, main } from "./cli";
+import { LogLevel } from "./Logger";
 
-import { defaultConfiguration, IDocumentOptions } from "./Configuration"
-import { Logger, LogLevel } from "./Logger"
-import { RevealServer } from "./RevealServer"
-import { parseSlides } from "./SlideParser"
+const { Command } = require('commander');
+const program = new Command()
 
-const rootDir = '.'
+program
+    .option('-d, --debug', 'log additional debug info')
+    .option('-p, --port <port>', 'serve app on specifict port')
+    .option('-s, --serve', 'serve app on a random port')
+    .option('-c, --config <location>', 'config json file to override default values')
+    .option('-o, --open <location>', 'source of the starter markdown file')
+program.parse(process.argv);
 
-const getExportPath = (config) => {
-    return path.isAbsolute(config.exportHTMLPath)
-        ? config.exportHTMLPath
-        : path.join(rootDir, config.exportHTMLPath)
+if (program.debug) {
+    console.log("Started tool with the following options: ", program.opts())
+};
+const logger = initLogger(program.debug ? LogLevel.Verbose : LogLevel.Error)
+const port = program.port ? program.port : 0
+const slideSource = program.open || ""
+const serve = program.port >= 0 || program.serve
+
+if (!slideSource) {
+    console.error("Please specify a markdown file to open with --open parameter. More info: --help")
+    process.exit(1)
 }
+const overrideConfig = loadConfigFile(program.config || "")
 
-// const slideContent = (documentText): string => {
-//     return matter(documentText).content
-// }
-
-const frontMatter = (documentText: string): any => {
-    return matter(documentText).data
-}
-
-const documentOptions = (documentText: string): IDocumentOptions => {
-    const front = frontMatter(documentText)
-    // tslint:disable-next-line:no-object-literal-type-assertion
-    return { ...defaultConfiguration, ...front } as IDocumentOptions
-}
-
-const getUri = (server): string | null => {
-    if (!server.isListening) {
-        return null
-    }
-    const serverUri = server.uri
-    // POSSIBLE PARAMS: `${serverUri}#/${slidepos.horizontal}/${slidepos.vertical}/${Date.now()}
-    return `${serverUri}`
-}
-
-export const exportPDFUri = (server) => {
-    const uri = getUri(server)
-    return uri + '?print-pdf-now'
-}
-
-async function main(slideSource, overrideConfig = {}) {
-    const config = { ...defaultConfiguration, ...overrideConfig }
-    const documentText = "" + fs.readFileSync(slideSource)
-    await jetpack.removeAsync(getExportPath(config))
-    const server = new RevealServer(
-        new Logger(LogLevel.Verbose, (e) => { console.log(e) }),
-        () => rootDir, // RootDir
-        () => parseSlides(documentText, documentOptions(documentText)),
-        () => config,
-        '.', // PATH TO DATA
-        () => false, // is during export
-        () => getExportPath(config)
-    )
-
-    server.start()
-    console.log(`Serving slides at: ${getUri(server)}`)
-
-    const hints: any = {};
-    hints["Select slide carousel"] = 'o'
-    hints["Prev slide"] = 'p/h'
-    hints["Nesx slide"] = 'n/l'
-    hints["Fullscreen mode"] = 'f'
-    hints["Download chalkboard"] = 'd'
-    hints["Speaker view"] = 's'
-    hints["Toggle drawing"] = 'c'
-    hints["Chalkboard"] = 'b'
-    hints["Pause presentation"] = 'v'
-    hints["Table of contents"] = 'm'
-    console.table(hints);
-    console.log(`Use this url to export pdf: ${exportPDFUri(server)}`)
-    console.log(`Speaker view served from: ${getUri(server)}libs/reveal.js/3.8.0/plugin/notes/notes.html (NEEDS TO OPEN WITH SHORTCUT)`)
-
-    // server.stop()
-
-}
-
-main("./examples/speakerview/sample.md")
+main(
+    logger,
+    slideSource,
+    serve,
+    port,
+    overrideConfig,
+)

@@ -46,12 +46,12 @@ export class RevealServer {
     const addr = this.server.address()
     return typeof addr === 'string' ? addr : `http://${this.host}:${addr.port}/`
   }
-  public start() {
+  public start(port = 0) {
     try {
 
       if (!this.isListening && this.getRootDir()) {
         this.configure()
-        this.server = this.app.listen(0)
+        this.server = this.app.listen(port)
       }
     } catch (err) {
       throw new Error(`Cannot start server: ${err}`)

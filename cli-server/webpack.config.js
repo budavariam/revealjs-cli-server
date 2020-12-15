@@ -28,7 +28,7 @@ const config = {
   resolve: { // support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
     extensions: ['.ts', '.js'],
     alias: {
-      'ejs': 'ejs/ejs.min.js'
+      // 'ejs': 'ejs/ejs.min.js' // would solve the build warning, BUT makes it unusable:  `TypeError: fs.existsSync is not a function`
     }
   },
   plugins: [
